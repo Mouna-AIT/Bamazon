@@ -11,6 +11,7 @@ var connection = mysql.createConnection({
     database: "Bamazon"
 })
 connection.connect(function(err) {
+    if (err) throw err;
     console.log("");
     console.log("Hello, Welcome to Bamazon!!");
     console.log("");
