@@ -1,5 +1,4 @@
 // Dependencies
-
 var inquirer = require('inquirer');
 var mysql = require('mysql');
 var Table = require('cli-table');
@@ -17,24 +16,25 @@ connection.connect(function(err) {
     console.log("");
 });
 
-//MAIN CHECK AND BUY FUNCTION WHICH DISPLAYS ALL ITEMS FROM MY SQL AND THEN ADDS FUNCTIONALITY TO BUY AN ITEM WITH QUANTITIY CHOICES 
+// check and buy function, dispays all items from sql and then adds functionality to buy an itemand choise quantity
 var checkAndBuy = function() {
     connection.query('SELECT * FROM products', function(err, res) {
         if (err) throw err;
-        //TABLE IN CLI VIEW 
+        // Table using CLI
         var table = new Table({
             head: ['item_id', 'product_name', 'department_name', 'price', 'stock_quantity'],
             colWidths: [10, 20, 20, 10, 10]
         });
 
-        //DISPLAYS ALL ITEMS FOR SALE 
+        // Displays Items for sale     
         console.log("THESE ARE ALL THE ITEMS AVAILABLE FOR SALE: ");
         console.log("==========================================");
         for (var i = 0; i < res.length; i++) {
             table.push([res[i].item_id, res[i].product_name, res[i].department_name, res[i].price.toFixed(2), res[i].stock_quantity]);
         }
         console.log("----------------------------------------------------------------------------");
-        //TABLE WITH ITEMS IN FOR PURCHASE. 
+
+        // Table with Items on for purchase
         console.log(table.toString());
         console.log("----------------------------------------------------------------------------");
         inquirer.prompt([{
