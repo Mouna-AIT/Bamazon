@@ -21,8 +21,8 @@ connection.connect(function(err) {
 
 var managerPrompt = function() {
     inquirer.prompt({
-        name: "action",
-        type: "list",
+        name: 'action',
+        type: 'list',
         message: "What would you like to do?",
         choices: ["View products for sale", "View low inventory", "Add to inventory", "Add a new product", "Exit"]
     }).then(function(answer) {
@@ -127,4 +127,36 @@ function addToInvent() {
         });
 
     });
+}
+
+// Ask how many items to add
+
+function addToInvent2(itemNames) {
+    // set the Item to 1st element of the array and removes it
+    var item = itemNames.shift();
+    var itemStock;
+    // connection to MySQL
+    connection.query('SELECT StockQuantity FROM products WHERE ?', {
+        product_name: item
+    }, function(err, res) {
+        if (err) throw err;
+        itemStock = res[0].stock_quantity;
+        itemStock = parseInt(itemStock)
+    });
+    // Ask user how many items
+    inquirer.prompt([{
+        name: 'amount',
+        type: 'text',
+        message: 'How many ' + item + ' would you like to add?',
+        // Handeling that makes you put only num
+        validate: function(string) {
+            if (isNaN(parseInt(string))) {
+                console.log('Not a valid number!');
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }])
+
 }
