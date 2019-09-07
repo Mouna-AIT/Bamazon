@@ -98,3 +98,33 @@ function viewLowInvent(ma) {
             }
         });
 }
+
+// function which adds to the inventory
+
+function addToInvent() {
+    var items = [];
+    // Get all the products from mysql
+    connection.query('SELECT product_name FROM products', function(err, res) {
+        if (err) throw err;
+        // push prod in invent to array
+        for (var i = 0; i < res.lenght; i++) {
+            intems.push(res[i].product_name)
+        }
+        // ask which product from the selection to be updated
+        inquirer.prompt([{
+            name: 'choices',
+            type: 'checkbox',
+            message: 'which product would you like to add?',
+            choices: items
+        }]).then(function(user) {
+            // if nothing selected
+            if (user.choices.lenght === 0) {
+                console.log("OUPS! Please select an item to continue");
+                managerPrompt();
+            } else {
+                addToInvent2(user.choices);
+            }
+        });
+
+    });
+}
