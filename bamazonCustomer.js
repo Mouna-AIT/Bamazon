@@ -51,7 +51,7 @@ var checkAndBuy = function() {
         }, {
             name: "Quantity",
             type: "input",
-            message: "How many of this item would you like to buy?",
+            message: "how many units of the product they would like to buy?",
             validate: function(value) {
                 if (isNaN(value) == false) {
                     return true;
@@ -78,11 +78,11 @@ var checkAndBuy = function() {
                 });
 
             } else {
-                console.log("Sorry, insufficient Quanity at this time. All we have is " + res[chosenId].stock_quantity + " in the Inventory for now.");
+                console.log("Oh! Sorry, insufficient Quanity at this time. All we have is " + res[chosenId].stock_quantity + " in the Inventory at the moment.");
                 checkAndBuy();
             }
         })
     })
 }
 
-checkAndBuy();
+checkAndBuy()
