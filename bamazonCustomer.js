@@ -17,7 +17,7 @@ connection.connect(function(err) {
 });
 
 // check and buy function, dispays all items from sql and then adds functionality to buy an itemand choise quantity
-var checkAndBuy = function() {
+var selectAndBuy = function() {
     connection.query('SELECT * FROM products', function(err, res) {
         if (err) throw err;
         // Table using CLI
@@ -74,15 +74,14 @@ var checkAndBuy = function() {
 
                 }], function(err, res) {
                     // console.log(err);
-                    checkAndBuy();
+                    selectAndBuy();
                 });
 
             } else {
                 console.log("Oh! Sorry, insufficient Quanity at this time. All we have is " + res[chosenId].stock_quantity + " in the Inventory at the moment.");
-                checkAndBuy();
+                selectAndBuy();
             }
         })
     })
 }
-
-checkAndBuy()
+selectAndBuy()
