@@ -6,17 +6,17 @@ Bamazon is a storefront app that takes in customers orders and depletes stock fr
 
 ## Bamazon Customer will:
 
-1. Display all of the items available for sale. Include the ids, names, and prices of products for sale.
+1. Display all of the items available for sale.
 
 2. Prompt the users with two messages:
     - *What is the item ID they would like to buy?*
-       - *how many units of the product they would like to buy?*
+        - *how many units of the product they would like to buy?*
 
-3. Once the customer has placed the order, the application will check if your store has enough of the product to meet the customer's request. if not it will log *"Insufficient quantity!"*.
+3. Once the customer has placed the order, the application will check if the store has enough of the product to meet the customer's request. if not it will log **_"Insufficient quantity!"_**.
 
 4. If the store does have enough of the product, the application will fulfill the customer's order and will:
- - Updating the SQL database to reflect the remaining quantity.
-    - Show the customer the total cost of their purchase.
+   - Updating the SQL database to reflect the remaining quantity.
+   - Show the customer the total cost of their purchase.
 
 ## Demo: 
 
@@ -29,13 +29,13 @@ List a set of menu options:
      - Add to Inventory
        - Add New Product
 
-1.  If a manager selects `View Products for Sale`, the app should list every available item: the item IDs, names, prices, and quantities.
+1.  If a manager selects `View Products for Sale`, the app should list every available item.
 
-2. If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
+2. If a manager selects `View Low Inventory`, then it should list all items with an inventory count **lower than five**.
 
-3. If a manager selects `Add to Inventory`, your app should display a prompt that will let the manager "add more" of any item currently in the store.
+3. If a manager selects `Add to Inventory`, the app should display a prompt that will let the manager **__"add more"__** of any item currently in the store.
 
-4. If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
+4. If a manager selects `Add New Product`, it should allow the manager to add a completely **new product** to the store.
 
 ## Demo:
 
