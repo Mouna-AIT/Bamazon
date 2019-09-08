@@ -4,7 +4,7 @@
 
 Bamazon is a storefront app that takes in customers orders and depletes stock from the stores Inventory.
 
-##Bamazon Customer will:##
+## Bamazon Customer will:
 
 1. Display all of the items available for sale. Include the ids, names, and prices of products for sale.
 
@@ -18,9 +18,9 @@ Bamazon is a storefront app that takes in customers orders and depletes stock fr
 - Updating the SQL database to reflect the remaining quantity.
 - Show the customer the total cost of their purchase.
 
-##Demo: 
+## Demo: 
 
-##Bamazon Manager will:##
+## Bamazon Manager will:
 
 List a set of menu options:
 
@@ -37,7 +37,7 @@ List a set of menu options:
 
 4. If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
 
-##Demo:
+## Demo:
 
 `View Products for Sale`:
 
