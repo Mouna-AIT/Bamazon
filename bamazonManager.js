@@ -39,7 +39,7 @@ var managerPrompt = function() {
                 break;
             case 'Add to inventory':
                 addToInvent();
-
+                break;
             case 'Add a new product':
                 addNewProd();
                 break;
@@ -136,7 +136,7 @@ function addToInvent2(itemNames) {
     var item = itemNames.shift();
     var itemStock;
     // connection to MySQL
-    connection.query('SELECT StockQuantity FROM products WHERE ?', {
+    connection.query('SELECT stock_quantity FROM products WHERE ?', {
         product_name: item
     }, function(err, res) {
         if (err) throw err;
@@ -157,6 +157,65 @@ function addToInvent2(itemNames) {
                 return true;
             }
         }
-    }])
+    }]).then(function(user) {
+        var amount = parseInt(amount);
+        // update db
+        connection.query('UPDATE products SET ? WHERE ?', [{
+            stock_quantity: itemStock += amount
+        }, {
+            product_name: item
+        }], function(err) {
+
+        });
+        // Run again if items stayed in array
+        if (itemNames.lenght != 0) {
+            addToInvent2(itemNames);
+        } else {
+            // start over if no more items
+            console.log('Your inventory has been updated.');
+            managerPrompt();
+        }
+
+    });
 
 }
+
+// Add New Product
+function addNewProd() {
+    var departments = [];
+    //I ADDED A DEPARTMENT TABLE WITH DIFFERENT DEPARTMENTS WHICH WILL SHOW UP HERE. 
+    connection.query('SELECT department_name FROM Departments', function(err, res) {
+        if (err) throw err;
+        for (var i = 0; i < res.length; i++) {
+            departments.push(res[i].department_name);
+        }
+    });
+    //THESE ARE ALL THE PROMPTS FOR THE USER TO BE PROMPTED.
+    inquirer.prompt([{
+        name: 'item',
+        type: 'text',
+        message: 'Please enter the name of the product that you would like to add.'
+    }, {
+        name: 'department',
+        type: 'list',
+        message: 'Please choose the department you would like to add your product to.',
+        choices: departments
+    }, {
+        name: 'price',
+        type: 'text',
+        message: 'Please enter the price for this product.'
+    }, {
+        name: 'stock',
+        type: 'text',
+        message: 'Plese enter the Stock Quantity for this item to be entered into current Inventory'
+    }]).then(function(user) {
+        //CREATES AN OBJECT WITH ALL OF THE ITEMS ADDED
+        var item = {
+            product_name: user.item,
+            department_name: user.department,
+            price: user.price,
+            stock_quantity: user.stock
+        }
+    });
+}
+managerPrompt();
