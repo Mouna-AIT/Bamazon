@@ -12,9 +12,6 @@ var connection = mysql.createConnection({
 })
 connection.connect(function(err) {
     if (err) throw err;
-    console.log("");
-    console.log("Hello, Welcome to Bamazon Manager!");
-    console.log("");
 });
 
 // Main manager prompt which runs for the manager file which has many diffrent options to choose from
@@ -23,7 +20,7 @@ var managerPrompt = function() {
     inquirer.prompt({
         name: 'action',
         type: 'list',
-        message: "What would you like to do?",
+        message: "Hello there! What would you like to do?",
         choices: ["View products for sale", "View low inventory", "Add to inventory", "Add a new product", "Exit"]
     }).then(function(answer) {
         switch (answer.action) {
@@ -183,14 +180,14 @@ function addToInvent2(itemNames) {
 // Add New Product
 function addNewProd() {
     var departments = [];
-    //I ADDED A DEPARTMENT TABLE WITH DIFFERENT DEPARTMENTS WHICH WILL SHOW UP HERE. 
+    //Added a new table called departments 
     connection.query('SELECT department_name FROM Departments', function(err, res) {
         if (err) throw err;
         for (var i = 0; i < res.length; i++) {
             departments.push(res[i].department_name);
         }
     });
-    //THESE ARE ALL THE PROMPTS FOR THE USER TO BE PROMPTED.
+    // Prompts for the user
     inquirer.prompt([{
         name: 'item',
         type: 'text',
@@ -209,13 +206,22 @@ function addNewProd() {
         type: 'text',
         message: 'Plese enter the Stock Quantity for this item to be entered into current Inventory'
     }]).then(function(user) {
-        //CREATES AN OBJECT WITH ALL OF THE ITEMS ADDED
+        // Object Array
         var item = {
-            product_name: user.item,
-            department_name: user.department,
-            price: user.price,
-            stock_quantity: user.stock
-        }
+                product_name: user.item,
+                department_name: user.department,
+                price: user.price,
+                stock_quantity: user.stock
+            }
+            // insert into Newbd
+        connection.query('INSERT INTO Products SET ?', item,
+            function(err) {
+                if (err) throw err;
+                console.log(item.product_name + 'has been added successfully.');
+                managerPrompt();
+            });
     });
 }
+
+
 managerPrompt();
