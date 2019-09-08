@@ -16,7 +16,7 @@ Bamazon is a storefront app that takes in customers orders and depletes stock fr
 
 4. If the store does have enough of the product, the application will fulfill the customer's order and will:
  - Updating the SQL database to reflect the remaining quantity.
-   - Show the customer the total cost of their purchase.
+    - Show the customer the total cost of their purchase.
 
 ## Demo: 
 
@@ -25,9 +25,9 @@ Bamazon is a storefront app that takes in customers orders and depletes stock fr
 List a set of menu options:
 
 - View Products for Sale
-  - View Low Inventory
-    - Add to Inventory
-      - Add New Product
+   - View Low Inventory
+     - Add to Inventory
+       - Add New Product
 
 1.  If a manager selects `View Products for Sale`, the app should list every available item: the item IDs, names, prices, and quantities.
 
