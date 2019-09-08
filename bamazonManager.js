@@ -56,23 +56,24 @@ var viewInvent = function(ma) {
     connection.query('SELECT * FROM products', function(err, res) {
         // Creating the new CLI table
         var table = new Table({
-            head: ['item_id', 'product_name', 'department_name', 'price', 'stock_quantity']
+            head: ['item_id', 'product_name', 'department_name', 'price', 'stock_quantity'],
+            colWidths: [10, 20, 20, 10, 10]
         });
         console.log("THESE ARE ALL THE AVALIBLE ITEMS");
         console.log("==========================================");
-        for (var i = 0; i < res.lenght; i++) {
-            table.push([res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity]);
+        for (var i = 0; i < res.length; i++) {
+            table.push([res[i].item_id, res[i].product_name, res[i].department_name, res[i].price.toFixed(2), res[i].stock_quantity]);
         }
-        // Display
+        // Display table with cLI
         console.log(table.toString());
         console.log("==========================================");
         ma();
     })
 }
 
-// function which displays the low invent when it reaches less than 3
+// function which displays the low invent when it reaches less than 5
 function viewLowInvent(ma) {
-    connection.query('SELECT * FROM products WEHRE stock_quantity < 3',
+    connection.query('SELECT * FROM products WHERE stock_quantity < 5',
         function(err, res) {
             if (err) throw err;
             // alert when no items and re RUN
@@ -84,8 +85,8 @@ function viewLowInvent(ma) {
                 var table = new Table({
                     head: ['item_id', 'product_name', 'department_name', 'price', 'stock_quantity']
                 });
-                for (var i = 0; i < res.lenght; i++) {
-                    table.push([res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity]);
+                for (var i = 0; i < res.length; i++) {
+                    table.push([res[i].item_id, res[i].product_name, res[i].department_name, res[i].price.toFixed(2), res[i].stock_quantity]);
                 }
                 // Displays in CLI table
                 console.log(table.toString());
@@ -101,17 +102,17 @@ function viewLowInvent(ma) {
 function addToInvent() {
     var items = [];
     // Get all the products from mysql
-    connection.query('SELECT product_name FROM products', function(err, res) {
+    connection.query('SELECT  product_name FROM products', function(err, res) {
         if (err) throw err;
         // push prod in invent to array
         for (var i = 0; i < res.lenght; i++) {
-            intems.push(res[i].product_name)
+            items.push(res[i].product_name)
         }
         // ask which product from the selection to be updated
         inquirer.prompt([{
             name: 'choices',
             type: 'checkbox',
-            message: 'which product would you like to add?',
+            message: 'Which product would you like to add?',
             choices: items
         }]).then(function(user) {
             // if nothing selected
@@ -132,8 +133,8 @@ function addToInvent2(itemNames) {
     // set the Item to 1st element of the array and removes it
     var item = itemNames.shift();
     var itemStock;
-    // connection to MySQL
-    connection.query('SELECT stock_quantity FROM products WHERE ?', {
+    // connection to MySQL 
+    connection.query('SELECT stock_quantity * FROM products WHERE ?', {
         product_name: item
     }, function(err, res) {
         if (err) throw err;
@@ -146,8 +147,8 @@ function addToInvent2(itemNames) {
         type: 'text',
         message: 'How many ' + item + ' would you like to add?',
         // Handeling that makes you put only num
-        validate: function(string) {
-            if (isNaN(parseInt(string))) {
+        validate: function(str) {
+            if (isNaN(parseInt(str))) {
                 console.log('Not a valid number!');
                 return false;
             } else {
@@ -155,14 +156,15 @@ function addToInvent2(itemNames) {
             }
         }
     }]).then(function(user) {
-        var amount = parseInt(amount);
+        var amount = user.amount;
+        amount = parseInt(amount);
         // update db
         connection.query('UPDATE products SET ? WHERE ?', [{
             stock_quantity: itemStock += amount
         }, {
             product_name: item
         }], function(err) {
-
+            if (err) throw err;
         });
         // Run again if items stayed in array
         if (itemNames.lenght != 0) {
@@ -214,10 +216,10 @@ function addNewProd() {
                 stock_quantity: user.stock
             }
             // insert into Newbd
-        connection.query('INSERT INTO Products SET ?', item,
+        connection.query('INSERT INTO products SET ?', item,
             function(err) {
                 if (err) throw err;
-                console.log(item.product_name + 'has been added successfully.');
+                console.log(item.product_name + ' has been added successfully.');
                 managerPrompt();
             });
     });
