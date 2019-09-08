@@ -102,7 +102,7 @@ function viewLowInvent(ma) {
 function addToInvent() {
     var items = [];
     // Get all the products from mysql
-    connection.query('SELECT  product_name FROM products', function(err, res) {
+    connection.query('SELECT product_name FROM products', function(err, res) {
         if (err) throw err;
         // push prod in invent to array
         for (var i = 0; i < res.lenght; i++) {
@@ -138,6 +138,7 @@ function addToInvent2(itemNames) {
         product_name: item
     }, function(err, res) {
         if (err) throw err;
+        // this is a bug tha i can't fix
         itemStock = res[0].stock_quantity;
         itemStock = parseInt(itemStock)
     });
