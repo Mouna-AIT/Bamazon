@@ -20,6 +20,10 @@ Bamazon is a storefront app that takes in customers orders and depletes stock fr
 
 ## Demo: 
 
+![Display-all-of-the-items](demo/Display-all-of-the-items.gif)
+
+![Product-selection](demo/Product-selection.gif)
+
 ## Bamazon Manager will:
 
 List a set of menu options:
