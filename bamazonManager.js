@@ -77,7 +77,7 @@ function viewLowInvent(ma) {
         function(err, res) {
             if (err) throw err;
             // alert when no items and re RUN
-            if (res.lenght === 0) {
+            if (res.length === 0) {
                 console.log("There are no Items with low inventroy!")
                 ma();
             } else {
@@ -105,24 +105,26 @@ function addToInvent() {
     connection.query('SELECT product_name FROM products', function(err, res) {
         if (err) throw err;
         // push prod in invent to array
-        for (var i = 0; i < res.lenght; i++) {
+        for (var i = 0; i < res.length; i++) {
+            // console.log(res[i]);
             items.push(res[i].product_name)
         }
         // ask which product from the selection to be updated
         inquirer.prompt([{
-            name: 'choices',
-            type: 'checkbox',
-            message: 'Which product would you like to add?',
-            choices: items
-        }]).then(function(user) {
-            // if nothing selected
-            if (user.choices.lenght === 0) {
-                console.log("OUPS! Please select an item to continue");
-                managerPrompt();
-            } else {
-                addToInvent2(user.choices);
-            }
-        });
+                name: 'choices',
+                type: 'checkbox',
+                message: 'Which product would you like to add?',
+                choices: items
+            }]).then(function(user) {
+                // if nothing selected
+                if (user.choices.length === 0) {
+                    console.log("OUPS! Please select an item to continue");
+                    managerPrompt();
+                } else {
+                    addToInvent2(user.choices);
+                }
+            })
+            .catch(err => console.log('Error while getting products: ' + err));
 
     });
 }
@@ -134,7 +136,7 @@ function addToInvent2(itemNames) {
     var item = itemNames.shift();
     var itemStock;
     // connection to MySQL 
-    connection.query('SELECT stock_quantity * FROM products WHERE ?', {
+    connection.query('SELECT stock_quantity  FROM products WHERE ?', {
         product_name: item
     }, function(err, res) {
         if (err) throw err;
@@ -168,7 +170,7 @@ function addToInvent2(itemNames) {
             if (err) throw err;
         });
         // Run again if items stayed in array
-        if (itemNames.lenght != 0) {
+        if (itemNames.length != 0) {
             addToInvent2(itemNames);
         } else {
             // start over if no more items
