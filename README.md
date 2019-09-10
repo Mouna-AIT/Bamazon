@@ -59,7 +59,11 @@ List a set of menu options:
 
 ![Add-Product](Demo/Add-Product.gif)
 
-![Add-Product](Demo/Add-Product.gif)
+![Add-Product](Demo/Add-Product2.gif)
+
+# Results:
+
+![Results](Demo/Results)
 
 ## **Technologies used:** 👩‍💻
 
