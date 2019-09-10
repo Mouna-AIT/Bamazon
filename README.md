@@ -61,7 +61,7 @@ List a set of menu options:
 
 ![Add-Product](Demo/Add-Product2.gif)
 
-# Results:
+###### Results:
 
 ![Results](Demo/Results.png)
 
