@@ -41,13 +41,21 @@ List a set of menu options:
 
 `View Products for Sale`:
 
-![movie-this](demo/movie-this.gif)
+![View-Products](Demo/View-Prod.gif)
 
 `View Low Inventory`:
 
+![Low-Inventory](Demo/Low-Invent.gif)
+
 `Add to Inventory`:
 
+![Add-toInvent](Demo/Add-toInvent.gif)
+
 `Add New Product`:
+
+![Add-Product](Demo/Add-Product.gif)
+
+![Add-Product](Demo/Add-Product.gif)
 
 ## **Technologies used:** 👩‍💻
 
