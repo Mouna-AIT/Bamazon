@@ -14,7 +14,7 @@ connection.connect(function(err) {
     if (err) throw err;
 });
 
-// Main manager prompt which runs for the manager file which has many diffrent options to choose from
+// Main manager prompt with many diffrent options
 
 var managerPrompt = function() {
     inquirer.prompt({
@@ -40,7 +40,7 @@ var managerPrompt = function() {
             case 'Add a new product':
                 addNewProd();
                 break;
-                // To exit the node (optional)
+                // Exit (optional)
             case 'Exit':
                 connection.end();
                 break;
@@ -97,7 +97,7 @@ function viewLowInvent(ma) {
         });
 }
 
-// function which adds to the inventory
+// function that adds to the inventory
 
 function addToInvent() {
     var items = [];
@@ -140,11 +140,10 @@ function addToInvent2(itemNames) {
         product_name: item
     }, function(err, res) {
         if (err) throw err;
-        // this is a bug tha i can't fix
         itemStock = res[0].stock_quantity;
         itemStock = parseInt(itemStock)
     });
-    // Ask user how many items
+    // Ask user how many items to add 
     inquirer.prompt([{
         name: 'amount',
         type: 'text',
