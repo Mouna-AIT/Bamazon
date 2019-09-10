@@ -63,7 +63,7 @@ List a set of menu options:
 
 # Results:
 
-![Results](Demo/Results)
+![Results](Demo/Results.png)
 
 ## **Technologies used:** 👩‍💻
 
